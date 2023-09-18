@@ -3,11 +3,8 @@
         <el-button type="danger" @click="open">点我点我快点我</el-button>
         <br>
         <el-button v-if="status" type="warning" @click="open2">达咩达咩达咩哟</el-button>
-        <el-table :data="tableData" border style="width: 100%">
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="name" label="Name" width="180" />
-            <el-table-column prop="status" label="Status" width="180" />
-            <el-table-column prop="address" label="Address" />
+        <el-table :data="tableData" border max-height="500px" style="width: 100%;">
+            <el-table-column v-for="e in tablestatus" :prop="e.prop" :label="e.label" :width="e.width" :fixed="e.fixed"/>
         </el-table>
     </div>
 </template>
@@ -16,7 +13,17 @@ import { ref } from 'vue'
 let bool: boolean = true
 const status = ref(bool)
 let num = 0
-let tableData = ref([
+const tablestatus=ref([
+    {prop:'date',label:'Date',width:180,fixed:false},
+    {prop:'name',label:'Name',width:180,fixed:false},
+    {prop:'status',label:'Status',width:180,fixed:false},
+    {prop:'address',label:'Address',width:180,fixed:false},
+    {prop:'address',label:'Address',width:180,fixed:false},
+    {prop:'address',label:'Address',width:180,fixed:false},
+    {prop:'address',label:'Address',width:180,fixed:false},
+    {prop:'address',label:'Address',width:180,fixed:false},
+])
+const tableData = ref([
     {
         date: '2016-05-03',
         name: 'Tom',
@@ -40,18 +47,36 @@ let tableData = ref([
         name: 'Tom',
         address: 'No. 189, Grove St, Los Angeles',
         status: status
+    },{
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+        status: status
+    },{
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+        status: status
+    },{
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+        status: status
+    },{
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles',
+        status: status
     },
 ])
 function open() {
-    // ElMessage({
-    //     message: '哟，你点击了我',
-    //     type: 'success'
-    // })
     ElNotification({
         type: 'success',
         message: '哟，你点击了我',
         duration: 3000,
     })
+    tablestatus.value[0].fixed=!tablestatus.value[0].fixed
+    // console.log(tablestatus.value)
     if (status.value == false) {
         setTimeout(() => {
             num = 0
